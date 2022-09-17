@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <p>hello word</p>
+    <div class="container">
+      <p id="id"></p>
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12">
+            <h1>Deep Object Cleaning - Undefined or Null</h1>
+            <p>
+              Using <code>JSON.stringify</code>, its replacer parameter, and
+              <code>JSON.parse</code>, we can easily do deep replacements of certain values in JSON
+              objects, stringify them (for output), and parse them once again as objects.
+            </p>
+            <p>
+              <code>JSON.stringify</code> will remove all <code>undefined</code> values for display,
+              but <code>JSON.parse</code> will retain them. As such, we need to use the replacer
+              parameter to call a function to check values in the object and return
+              <code>undefined</code> as the new value. This will remove them from the parsed and
+              cleaned object.
+            </p>
+            <p>
+              This example was created in conjunction with a
+              <a href="http://stackoverflow.com/a/40517249/1489958">StackOverflow answer</a>.
+            </p>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+            <h2>Original Object</h2>
+            <pre id="originalObject" class="prettyprint"></pre>
+          </div>
+          <div class="col-md-6">
+            <h2>Cleaned Object</h2>
+            <pre id="cleanedObject" class="prettyprint"></pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+
+  <script>
+    const p = async () => {
+      const grahpql = {
+        query: `
+        query  {
+        getAllUser(page: 1) {
+          users {
+            _id
+            emailUser
+          #   passwordUser
+            nameUser
+            usernameUser
+            activeStatusUser
+            statusUser
+            avatarUser
+            resetTokenUser
+            resetTokenExpiresUser
+            githubLinkUser
+            linkedinLinkUser
+            showcaseLinkUser
+            gmailLinkUser
+            educationUser{educationName}
+            itemsUser{
+              certificateId {
+                _id
+              }
+              projectId {
+                _id
+              }
+            }
+          }
+          totalUsers
+        }
+      }`,
+      };
+
+      const result = await fetch("http://localhost:4000/graphql", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify(grahpql),
+      });
+
+      const data = await result.json();
+      console.log(data.data.getAllUser.users);
+      const testObject = data.data.getAllUser.users;
+      function replaceUndefinedOrNull(key, value) {
+        if (value === null || value === undefined) {
+          return undefined;
+        }
+
+        return value;
+      }
+
+      document.getElementById("originalObject").innerHTML = JSON.stringify(
+        testObject,
+        undefined,
+        4
+      );
+
+      var cleanedObject = JSON.stringify(testObject, replaceUndefinedOrNull, 4);
+
+      document.getElementById("cleanedObject").innerHTML = cleanedObject;
+    };
+
+    p();
+  </script>
+</html>

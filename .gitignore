@@ -1,0 +1,3 @@
+git remote add origin https://github.com/Jkenyut/Staycurios_ShowCase.git
+staycurios back-end/.env
+staycurios front-end/node_modules
