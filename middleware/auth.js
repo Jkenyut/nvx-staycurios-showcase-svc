@@ -25,7 +25,7 @@ module.exports = async (req, res, next) => {
     error.code = 401;
     throw error;
   }
-  console.log()
+  console.log("ok")
   req.userId = decodedToken.userId;
   console.log(req.userId)
   req.isAuth = true;
