@@ -1,5 +1,5 @@
-const { gql } = require("apollo-server");
-const { GraphQLScalarType, Kind } = require("graphql");
+const {gql} = require("apollo-server");
+const {GraphQLScalarType, Kind} = require("graphql");
 
 const typeDefs = gql`
   scalar Date
