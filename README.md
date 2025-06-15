@@ -54,9 +54,9 @@ Make sure you have the following installed:
 ### 2. Installation & Setup
 
 1.  **Clone the repository:**
-    ```bash
-    git clone [https://github.com/m-satria-saputro/nvx-staycurios-showcase.git](https://github.com/m-satria-saputro/nvx-staycurios-showcase.git)
-    cd nvx-staycurios-showcase
+    ```
+    git clone [this project]
+    cd project
     ```
 
 2.  **Install dependencies:**
